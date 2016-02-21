@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://yizhi401.github.io/atom.xml" rel="self"/>
   <link href="http://yizhi401.github.io/"/>
-  <updated>2016-02-21T18:21:46+08:00</updated>
+  <updated>2016-02-21T18:27:28+08:00</updated>
   <id>http://yizhi401.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -18,7 +18,9 @@
     <link href="http://yizhi401.github.io/blog/2016/02/21/test-blog/"/>
     <updated>2016-02-21T18:03:49+08:00</updated>
     <id>http://yizhi401.github.io/blog/2016/02/21/test-blog</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h1>This is Only a Begin</h1>
+
+<p>I just setup this blog and trying to move my past blogs to this one.</p>
 ]]></content>
   </entry>
   
