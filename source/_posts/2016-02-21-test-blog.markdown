@@ -1,11 +1,15 @@
 ---
+
 layout: post
 title: "test blog"
 date: 2016-02-21 18:03:49 +0800
 comments: true
-categories: 
+categories: bbb
 ---
 
-# This is Only a Begin
+# 博客搬家咯
 
-I just setup this blog and trying to move my past blogs to this one.
+version1.0  
+欢迎来到陈浩的博客  
+第一行和CSDN说再见   
+以后再慢慢的把之前的迁移过来。
