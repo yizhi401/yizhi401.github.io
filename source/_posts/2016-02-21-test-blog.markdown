@@ -1,0 +1,11 @@
+---
+layout: post
+title: "test blog"
+date: 2016-02-21 18:03:49 +0800
+comments: true
+categories: 
+---
+
+# This is Only a Begin
+
+I just setup this blog and trying to move my past blogs to this one.

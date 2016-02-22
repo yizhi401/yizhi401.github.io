@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yizhi401.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://peterchen.cn
+title: 锡安之路
+subtitle: 不是矩阵乃是神的话语
+author: 陈浩（Peter）
 simple_search: https://www.google.com/search
-description:
+description: 这是陈浩的个人博客，爱耶稣，爱游戏，爱编程。
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
