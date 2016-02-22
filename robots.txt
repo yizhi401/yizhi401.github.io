@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://yizhi401.github.io/sitemap.xml 
+Sitemap: http://peterchen.cn/sitemap.xml 

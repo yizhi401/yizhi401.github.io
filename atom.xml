@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://yizhi401.github.io/atom.xml" rel="self"/>
-  <link href="http://yizhi401.github.io/"/>
-  <updated>2016-02-21T18:27:28+08:00</updated>
-  <id>http://yizhi401.github.io/</id>
+  <title><![CDATA[锡安之路]]></title>
+  <link href="http://peterchen.cn/atom.xml" rel="self"/>
+  <link href="http://peterchen.cn/"/>
+  <updated>2016-02-22T10:36:01+08:00</updated>
+  <id>http://peterchen.cn/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[陈浩（Peter）]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Test Blog]]></title>
-    <link href="http://yizhi401.github.io/blog/2016/02/21/test-blog/"/>
+    <link href="http://peterchen.cn/blog/2016/02/21/test-blog/"/>
     <updated>2016-02-21T18:03:49+08:00</updated>
-    <id>http://yizhi401.github.io/blog/2016/02/21/test-blog</id>
+    <id>http://peterchen.cn/blog/2016/02/21/test-blog</id>
     <content type="html"><![CDATA[<h1>This is Only a Begin</h1>
 
 <p>I just setup this blog and trying to move my past blogs to this one.</p>
