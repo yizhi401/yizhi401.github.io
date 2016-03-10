@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>A*算法优化 - 锡安之路</title>
+  <title>A*算法优化 - 陈浩的Blog</title>
   <meta name="author" content="陈浩（Peter）">
 
   
@@ -21,7 +21,7 @@
   <link rel="canonical" href="http://peterchen.cn/blog/2016/03/10/a-star-suan-fa-you-hua/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="锡安之路" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="陈浩的Blog" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -36,9 +36,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">锡安之路</a></h1>
+  <h1><a href="/">陈浩的Blog</a></h1>
   
-    <h2>不是矩阵乃是神的话语</h2>
+    <h2>但那等候耶和华的，必从新得力。(以赛亚书40:31)</h2>
   
 </hgroup>
 
@@ -116,16 +116,20 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
 
 <p>有多种ε-admissible算法，在此只举例最简单直接的一种： 加权A*(静态加权)算法。<br/>
 假如ha(n)是一个admissible的启发函数，我们选取新的启发函数hw(n) = ε ha(n)，其中ε>1 作为启发函数。就可以在某种程度上进行优化。
-下图1是使用ha(n)作为启发式算法，下图2是使用hw(n)作为启发式算法，其中ε取5.</p>
+下图1是使用ha(n)作为启发式算法，下图2是使用hw(n)作为启发式算法，其中ε取5.
+<br></p>
 
-<p>图1：ha(x)作为启发算法 <br/>
+<p><img src="/images/ds/astar_1.png"><br/>
+图1：ha(x)作为启发算法
+<br>
+<img src="/images/ds/astar_2.png"><br/>
 图2：hn(x)作为启发算法</p>
 
 <p>可以看出，ha(n)可以找到最小路径，但是多了许多无用的搜索；而hw(n)找到的不是最优路径，但是减少了大量无用搜索。</p>
 
 <p>其他的优化算法思路类似都是在于启发函数的选择。详见参考文献。</p>
 
-<p>参考：
+<p>参考： <br/>
 <a href="https://en.wikipedia.org/wiki/A*_search_algorithm#Admissibility_and_optimality">https://en.wikipedia.org/wiki/A*_search_algorithm#Admissibility_and_optimality</a>
 <a href="https://en.wikipedia.org/wiki/Consistent_heuristic">https://en.wikipedia.org/wiki/Consistent_heuristic</a></p>
 </div>
@@ -166,7 +170,7 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2016/02/22/a-new-post-test/" title="Previous Post: A new Post Test">&laquo; A new Post Test</a>
+        <a class="basic-alignment left" href="/blog/2016/02/21/test-blog/" title="Previous Post: 欢迎！快找个位子坐下来...">&laquo; 欢迎！快找个位子坐下来...</a>
       
       
     </p>
@@ -181,8 +185,14 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
   <h1>About Me</h1>
   </br>
   <h3>陈浩Peter</h3>
-  <p>基督徒</p>
-  <p>游戏开发者</p>
+  <p>基督徒,游戏开发者</p>
+  <p>
+  邮箱:  <a href="mailto:yizhi401@126.com">yizhi401@126.com</a>
+  <br>
+  QQ: 312798965
+  <br>
+  知乎: <a href="https://www.zhihu.com/people/chen-hao-58-27">陈浩yizhi401</a>
+  </p>
 </section>
 <section>
   <h1>Recent Posts</h1>
@@ -193,11 +203,7 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/02/22/a-new-post-test/">A New Post Test</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/02/21/test-blog/">Test Blog</a>
+        <a href="/blog/2016/02/21/test-blog/">欢迎！快找个位子坐下来...</a>
       </li>
     
   </ul>
@@ -208,7 +214,7 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aaa'>aaa (1)</a></li><li><a href='/blog/categories/bbb'>bbb (1)</a></li><li><a href='/blog/categories/shu-ju-jie-gou-yu-suan-fa'>数据结构与算法 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/shu-ju-jie-gou-yu-suan-fa'>数据结构与算法 (1)</a></li><li><a href='/blog/categories/za-xiang'>杂项 (1)</a></li></ul>
 </section>
 
   

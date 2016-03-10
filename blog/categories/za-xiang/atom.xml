@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Bbb | 锡安之路]]></title>
-  <link href="http://peterchen.cn/blog/categories/bbb/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 杂项 | 陈浩的Blog]]></title>
+  <link href="http://peterchen.cn/blog/categories/za-xiang/atom.xml" rel="self"/>
   <link href="http://peterchen.cn/"/>
-  <updated>2016-03-10T22:10:43+08:00</updated>
+  <updated>2016-03-10T22:47:45+08:00</updated>
   <id>http://peterchen.cn/</id>
   <author>
     <name><![CDATA[陈浩（Peter）]]></name>
@@ -14,15 +14,14 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Test Blog]]></title>
+    <title type="html"><![CDATA[欢迎！快找个位子坐下来...]]></title>
     <link href="http://peterchen.cn/blog/2016/02/21/test-blog/"/>
     <updated>2016-02-21T18:03:49+08:00</updated>
     <id>http://peterchen.cn/blog/2016/02/21/test-blog</id>
     <content type="html"><![CDATA[<h1>博客搬家咯</h1>
 
-<p>version1.0<br/>
-欢迎来到陈浩的博客<br/>
-第一行和CSDN说再见 <br/>
+<p>欢迎来到陈浩的博客<br/>
+第一行和CSDN与51CTO说再见 <br/>
 以后再慢慢的把之前的迁移过来。</p>
 ]]></content>
   </entry>

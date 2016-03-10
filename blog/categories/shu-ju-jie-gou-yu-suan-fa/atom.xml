@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 数据结构与算法 | 锡安之路]]></title>
+  <title><![CDATA[Category: 数据结构与算法 | 陈浩的Blog]]></title>
   <link href="http://peterchen.cn/blog/categories/shu-ju-jie-gou-yu-suan-fa/atom.xml" rel="self"/>
   <link href="http://peterchen.cn/"/>
-  <updated>2016-03-10T22:10:43+08:00</updated>
+  <updated>2016-03-10T22:47:45+08:00</updated>
   <id>http://peterchen.cn/</id>
   <author>
     <name><![CDATA[陈浩（Peter）]]></name>
@@ -50,16 +50,20 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
 
 <p>有多种ε-admissible算法，在此只举例最简单直接的一种： 加权A*(静态加权)算法。<br/>
 假如ha(n)是一个admissible的启发函数，我们选取新的启发函数hw(n) = ε ha(n)，其中ε>1 作为启发函数。就可以在某种程度上进行优化。
-下图1是使用ha(n)作为启发式算法，下图2是使用hw(n)作为启发式算法，其中ε取5.</p>
+下图1是使用ha(n)作为启发式算法，下图2是使用hw(n)作为启发式算法，其中ε取5.
+<br></p>
 
-<p>图1：ha(x)作为启发算法 <br/>
+<p><img src="/images/ds/astar_1.png"><br/>
+图1：ha(x)作为启发算法
+<br>
+<img src="/images/ds/astar_2.png"><br/>
 图2：hn(x)作为启发算法</p>
 
 <p>可以看出，ha(n)可以找到最小路径，但是多了许多无用的搜索；而hw(n)找到的不是最优路径，但是减少了大量无用搜索。</p>
 
 <p>其他的优化算法思路类似都是在于启发函数的选择。详见参考文献。</p>
 
-<p>参考：
+<p>参考： <br/>
 <a href="https://en.wikipedia.org/wiki/A*_search_algorithm#Admissibility_and_optimality">https://en.wikipedia.org/wiki/A*_search_algorithm#Admissibility_and_optimality</a>
 <a href="https://en.wikipedia.org/wiki/Consistent_heuristic">https://en.wikipedia.org/wiki/Consistent_heuristic</a></p>
 ]]></content>
