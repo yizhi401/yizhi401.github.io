@@ -9,7 +9,7 @@
   <meta name="author" content="陈浩（Peter）">
 
   
-  <meta name="description" content="一. 概述 A算法是游戏中路径搜索的常见算法。Dijkstra是最短路径的经典算法，A算法的思路基本上和Dijkstra算法一致，在Dijkstra算法的基础上增加了启发函数，也就是： f(n) = g(n) + h(n) 其中，n是路径上某一点，g(n)是从出发点到该点的cost，h(n) &hellip;">
+  <meta name="description" content="由于面试中经常会问到TCP协议的一些细节，比如三次握手的详细过程、断开连接的过程、滑动窗口、拥塞控制等方面的内容，因此这里就整理下。 一.传输层协议 传输层主要是包含两个协议，即TCP和UDP协议。 UDP (User Datagram Protocol):基于UDP协议的上层协议包括 DNS， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,213 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/03/11/tcpxie-yi-gai-shu/">TCP协议概述</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-03-11T20:21:44+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>8:21 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>由于面试中经常会问到TCP协议的一些细节，比如三次握手的详细过程、断开连接的过程、滑动窗口、拥塞控制等方面的内容，因此这里就整理下。</p>
+
+<h2>一.传输层协议</h2>
+
+<p>传输层主要是包含两个协议，即TCP和UDP协议。<br/>
+<br>
+<strong><em>UDP</em></strong> (User Datagram Protocol):基于UDP协议的上层协议包括 DNS，RIP，DHCP，NFS等。传送数据前不需要先建立连接。<br/>
+<strong><em>TCP</em></strong> (Transmission Control Protocol)：基于TCP协议的上层协议包括SMTP，Telnet，HTTP，FTP等。TCP是面向连接的。</p>
+
+<p>由于传输层使用IP+端口号使得不同主机上的进程可以通信，也就是Socket，如192.168.1.1:8080。端口号是16位，最大为65535。其中，0-1023是保留端口号，如常见的有FTP 21， Telnet 23，SMTP 25， DNS 53， HTTP 80等。</p>
+
+<h2>二.UDP协议简介</h2>
+
+<p>UDP协议非常的简单，仅仅在IP协议上增加了一点点功能。主要特点是：</p>
+
+<ol>
+<li>无连接。</li>
+<li>尽最大努力交付。</li>
+<li>面向报文。对应用层交下来报文不拆分也不合并，直接添加首部交给IP层。因此若报文太长，就会让IP传输很长时间，若报文太短，会使得大量空间浪费在各类协议首部，降低传输效率。</li>
+<li>支持1对1，1对多，多对多。</li>
+<li>没有拥塞控制。</li>
+<li>报文首部开小，只有8个字节。包含源端口号、目的端口号、长度和校验和。</li>
+</ol>
+
+
+<h2>三. TCP概述</h2>
+
+<p>TCP协议的特点是：</p>
+
+<ol>
+<li>面向连接</li>
+<li>点对点（一对一）</li>
+<li>可靠交付</li>
+<li>面向字节流，也就是说仅仅把上层协议传递过来的数据当成字节传输。
+为了实现TCP上述的特点，TCP协议需要解决的是面向连接（建立连接和关闭连接的方式）、可靠传输（错误确认和重传）、流量控制（发送方和接收方的传输速率协调）、拥塞控制四个方面。</li>
+</ol>
+
+
+<h2>四 TCP协议首部格式</h2>
+
+<p>TCP协议首部最小长度是20字节，首部有一个长度可变的选项部分，最大40字节，所以TCP首部长度是20-60字节大小。具体如图：</p>
+
+<p><img src="/images/network/tcp_1.png"></p>
+
+<p>选取部分字段说明：<br/>
+<strong>序号</strong>：TCP传输的时候每一个字节都按顺序编号；协议中的序号是本报文段所发送数据第一个字节的序号。序号也用于建立和结束连接时候使用。<br/>
+<strong>确认号</strong>：用于可靠传输中，返回确认报文序号。<br/>
+<strong>数据偏移</strong>：指出数据段在报文中开始的位置。<br/>
+<strong>窗口</strong>：可靠连接和流量控制中所用到的窗口大小。</p>
+
+<p>上图中有六个控制位，对于建立和结束连接非常关键，解释如下：</p>
+
+<ol>
+<li><strong>URG</strong>(Urgent):紧急字段，可以让该报文不按报文顺序优先被处理。比如用户突然终止传输关闭连接。</li>
+<li><strong>ACK</strong>(Acknowledge):所有建立连接后传送的报文ACK必须为1.</li>
+<li><strong>PSH</strong>(Push):发送方讲该报文推送向前，可以不用等缓存填满先提交给应用程序。</li>
+<li><strong>RST</strong>(Reset):连接出现严重差错时候设为1，重新建立连接。也可用于拒绝建立连接。</li>
+<li><strong>SYN</strong>(Synchronize):建立连接时候的同步标志。SYN=1而ACK=0时表示建立连接请求。</li>
+<li><strong>FIN</strong>(Finish):终止时标志位。</li>
+</ol>
+
+
+<p>另外，在选项中有这么几种选择：</p>
+
+<ol>
+<li>最大报文长度MSS(Maxium Segment Size),指的是一个TCP报文数据段的最大长度。要尽可能大一些但是又不需要IP拆分。推荐是536字节，这样真个TCP报文长度是 536+20 = 556字节。</li>
+<li>窗口扩大选项。可用于控制传输窗口大小。</li>
+<li>时间戳。非常有用。可以用于 1）计算往返时间RTT 2）区分重复报文。因为报文的序号只能是2<sup>32</sup>-1个，所以很容易就重复了，加上时间戳可以进行区分。</li>
+</ol>
+
+
+<h2>五 TCP协议的建立连接过程（三次握手）</h2>
+
+<p>著名的三次握手协议，一图胜万语。</p>
+
+<p><img src="/images/network/tcp_2.png"></p>
+
+<p>对上图的说明：
+SYN和ACK已经说过了。seq就是首部中的序号字段，图中x和y都是随机生成的，然后收到后返回确认会将其+1.注意发送方和接收方的状态变化如下：</p>
+
+<p>发送方: <strong>CLOSED</strong>&ndash;><strong>SYN-SENT</strong>&ndash;><strong>ESTABLISHED</strong><br/>
+接收方: <strong>CLOSED</strong>&ndash;><strong>LISTEN</strong>&ndash;><strong>SYN_RECEIVED</strong>&ndash;><strong>ESTABLISHED</strong></p>
+
+<p>为什么需要三次握手？主要是为了防止“已失效的连接请求”。加入只要两次握手，即A发送请求B返回确认就可以建立连接。可能会出现以下情况：比如，A发送的第一个连接请求并未丢失，而是延滞了，此时A已经放弃了建立连接，但是B又最终收到了，于是返回ACK给A，这样就错误的建立了连接。</p>
+
+<h2>六 TCP协议关闭连接过程（四次握手）</h2>
+
+<p>释放连接的过程也见下图：</p>
+
+<p><img src="/images/network/tcp_3.png"></p>
+
+<p>对上图的说明：FIN、ACK字段之前已经讲过。seq是序列号，图中每一个新的字母都表示随机生成。释放连接的状态变化：<br/>
+发送方：<strong>ESTABLISHED</strong>&ndash;><strong>FIN-WAIT_1</strong>&ndash;><strong>FIN-WAIT_2</strong>&ndash;><strong>TIME-WAIT</strong>&ndash;><strong>CLOSED</strong><br/>
+接收方：<strong>ESTABLISHED</strong>&ndash;><strong>CLOSE</strong>&ndash;><strong>WAIT</strong>&ndash;><strong>LAST-ACT</strong>&ndash;><strong>CLOSED</strong></p>
+
+<p>注意，释放连接包含两个来回。前两次握手代表发送方不再传输数据了。后两次握手代表接收方不再传输数据了，因为TCP是全双工通信，二者是可以同时发送消息和接受消息的。所以图中B的CLOSE-WAIT阶段，仍然可以传输数据。</p>
+
+<p>为什么A在发送确认后还有TIME-WAIT的阶段？有两个理由:</p>
+
+<ol>
+<li><p>A发送的最后一个ACK必须到达B。如果B没有收到该ACK，可能会再次发送FIN+ACK。如果此时A关闭了，B就不可能收到ACK了，也就无法正常关闭。</p></li>
+<li><p>同三次握手一样，A等待一段时间，可以上网络中本次连接的延滞的请求都发送到位，然后再关闭连接，这样网络里面就不会再剩下本次连接的请求了。</p></li>
+</ol>
+
+
+<p>TIME-WAIT设置为多久？更具上述分析，一般会把TIME-WAIT时间设置为2MSL，MSL代表最长报文寿命(Maximum Segment Lifetime)。也就是说，如果一段报文最长寿命为2分钟，会让A等待4分钟后再关闭。</p>
+
+<h2>七 TCP协议可靠传输的实现</h2>
+
+<ul>
+<li><p><strong>基本原理</strong><br/>
+考虑A发送数据到B接受的情况。记报文为M。
+停止等待协议：A每发送完一个报文M，就等候B对其确认；收到确认后继续发送。A设置<strong>超时重传机制</strong>。因此这种机制也成为自动重传请求ARQ(Automatic Repeat reQuest)。</p></li>
+<li><p><strong>连续ARQ协议/窗口滑动协议</strong><br/>
+显然，每次只发送一个报文然后等待确认效率太低。所以可以约定每次发送多个报文，然后采用累积确认的方式。B对按序到达的最后一个分组发送确认。如果中间发生丢失包的情况，A需要回退到确认的报文重新发送。如图所示。</p></li>
+</ul>
+
+
+<p><img src="/images/network/tcp_4.png"></p>
+
+<p>说明一下：A的发送窗口大小是根据B接受窗口设置的。也就是说A发送的报文速度不能超过B处理报文的速度。</p>
+
+<p>TCP中对于超时重传时间的选择是根据平均往返时间RTT来计算的。也就是说，如果A超过一个报文平均往返时间没有收到确认，就会重新发送报文。</p>
+
+<h2>八 TCP协议流量控制</h2>
+
+<p>流量控制，简单来说就是不能发送的太快，以免处理不完，也不能发送的太慢，以免浪费资源。TCP协议中，建立连接之时，B会告诉A自己接受窗口的大小，A的窗口大小不会超过这个大小。</p>
+
+<p>传输过程中，B会根据自己数据缓存的情况给A返回自己的窗口大小，例如，刚开始发送数据时，B的缓冲区为空，设置窗口大小为300，A开始发送；但是由于A发送的太快，B缓冲区渐渐变满，就会将接受窗口的大小设为100；如果B的缓冲区满了，还可能将窗口大小设为0，A就停止发送，直到B重新发送了一个窗口大小。</p>
+
+<h2>九 TCP协议拥塞控制</h2>
+
+<h3>慢开始、拥塞避免、快重传、快恢复</h3>
+
+<p>拥塞控制发生在网络中负载太大，比如路由器IP包队列堆满了，就会丢弃尾部的包，从而导致TCP层数据的丢失。拥塞控制就是要避免网络数据量太大导致传输效率、速度降低。</p>
+
+<p>常见的TCP拥塞控制方法包括四种：</p>
+
+<ol>
+<li>慢开始</li>
+<li>拥塞避免</li>
+<li>快重传</li>
+<li>快恢复</li>
+</ol>
+
+
+<p><strong>慢开始</strong>是指，TCP开始建立连接发送数据后，每次发送的报文段数从1开始。不能一开始就发送大量的报文段。如果网络畅通，发送方每个数据往返来回就把发送报文的数据量增加一倍。注意，这里的报文数据量指的就是<strong>窗口大小</strong>。<br/>
+这样指数级会导致发送窗口快速增长。当超过一定值时候，就可能导致网络拥塞了，这个值被称为<strong>慢开始门限ssthresh</strong>。超过ssthresh后就采取<strong>拥塞避免</strong>的算法。变为发送窗口每次增长1.</p>
+
+<p>如果A超过一定时间没有收到B发来的确认，说明报文丢失了，网络拥塞出现，此时将窗口大小设置为1，并将ssthresh设置为出现拥塞时窗口大小的一半。重新进行慢开始算法。这个过程称为AIMD（加法增大乘法减小）。</p>
+
+<p><img src="/images/network/tcp_5.png"></p>
+
+<p><strong>快重传</strong>是指，接收方B每收到一个失序的报文段（以为之前有报文段拥塞了）就立即发出重复确认。发送方如果连续收到三个重复确认就立即重传该报文段，而无需等候为重传计时器。如下图：</p>
+
+<p><img src="/images/network/tcp_6.png"></p>
+
+<p>快重传和快恢复配合使用。如果发送方连续收到三次重复确认时，就执行“乘法减小”策略。但是不同之处在于，此时不再将窗口设置为1（慢开始算法），而是执行拥塞避免算法。如下图：</p>
+
+<p><img src="/images/network/tcp_7.png"></p>
+
+<p>增加了拥塞控制算法后，TCP协议中发送方窗口大小设置为:</p>
+
+<p> <strong>Min[拥塞窗口，接收方窗口]</strong></p>
+
+<h3>随机早期检测RED</h3>
+
+<p>对TCP拥塞控制影响最大的是路由器的分组丢弃策略。路由器按照先进先出的原则发包。当队列满了之后，就会将超出队列的包一起丢弃。
+由于一个路由器的包是来自于不同TCP协议客户端，这些发送方会同时发现丢包了，于是执行拥塞算法，此时网络中流量骤然下降，待网络恢复后，通信量又会突然增大。<br/>
+为了避免这种情况出现，可以让路游戏采用随机早期检测算法RED（Random Early Detection）。方法很简单，设定一个队列最小阈限THmin和队列最大阈限THmax。当队列长度&lt;THmin时，正常发包；当队列长度介于THmin和THmax之间时，按照一定概率p随机丢包；当队列长度大于THmax时，将新到达的包丢掉。概率p可以随着队列长度增加逐渐从0增加到1.THmax一般设置为THmin的两倍。<br/>
+通过这种算法，就可以避免开始所述的网路流量突然增大和突然缩小的情况。</p>
+
+<p><br>
+<br>
+<br></p>
+
+<h3>参考文献</h3>
+
+<p>《计算机网络（第五版）》谢希仁，文中所有内容和配图均来自本书第五章</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -213,6 +420,10 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/11/tcpxie-yi-gai-shu/">TCP协议概述</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/03/10/a-star-suan-fa-you-hua/">A*算法优化</a>
       </li>
     
@@ -257,7 +468,7 @@ A算法每次选择f(n)最小的点，然后更新所有g(n)。 <br/>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/shu-ju-jie-gou-yu-suan-fa'>数据结构与算法 (1)</a></li><li><a href='/blog/categories/za-xiang'>杂项 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/shu-ju-jie-gou-yu-suan-fa'>数据结构与算法 (1)</a></li><li><a href='/blog/categories/za-xiang'>杂项 (1)</a></li><li><a href='/blog/categories/ji-suan-ji-wang-luo'>计算机网络 (1)</a></li></ul>
 </section>
 
   
